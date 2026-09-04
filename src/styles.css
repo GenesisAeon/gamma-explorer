@@ -1,0 +1,94 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-display: "Instrument Serif", "Times New Roman", serif;
+  --font-mono: "IBM Plex Sans", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-background: #0b0c0e;
+  --color-foreground: #ececea;
+  --color-card: #141518;
+  --color-card-foreground: #ececea;
+  --color-popover: #1c1e22;
+  --color-popover-foreground: #ececea;
+  --color-primary: #c5d0d4;
+  --color-primary-foreground: #0b0c0e;
+  --color-secondary: #1c1e22;
+  --color-secondary-foreground: #ececea;
+  --color-muted: #1a1c20;
+  --color-muted-foreground: #8e8e87;
+  --color-accent: #c5d0d4;
+  --color-accent-foreground: #0b0c0e;
+  --color-destructive: #c45c4a;
+  --color-border: color-mix(in oklab, #ececea 12%, transparent);
+  --color-input: color-mix(in oklab, #ececea 14%, transparent);
+  --color-ring: #c5d0d4;
+  --color-elevated: #1c1e22;
+  --color-subtle: #6a6a64;
+  --color-band: color-mix(in oklab, #c5d0d4 9%, transparent);
+  --color-live: #e8eceb;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius: 0.75rem;
+
+  --shadow-border: 0 0 0 1px color-mix(in oklab, #ececea 8%, transparent);
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --text-2xs: 0.625rem;
+  --text-micro: 0.6875rem;
+  --tracking-label: 0.16em;
+  --tracking-display: -0.03em;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    overflow-x: hidden;
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    line-height: 1.5;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

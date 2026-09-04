@@ -1,0 +1,25 @@
+# dependencies & build
+node_modules/
+dist/
+.output/
+.nitro/
+.tanstack/
+.vercel/
+*.tsbuildinfo
+
+# sandbox / local tooling
+.grok/
+artifacts/
+screenshots/
+AGENTS.md
+AGENTS.project.md
+startup.sh
+.node_modules.lock
+
+# env & secrets
+.env
+.env.*
+!.env.example
+
+public/__grok/
+
