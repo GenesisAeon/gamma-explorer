@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+message: >
+  If you use this software in your research, please cite it using the metadata below.
+title: "Gamma-Explorer: cross-domain CREP Gamma = arctanh(eta)/sigma comparison frame"
+abstract: >
+  Interactive explorer comparing the GenesisAeon CREP inversion
+  Gamma = arctanh(eta)/sigma across ten published domain calibrations
+  (AMOC, Amazon, solar flares, Cygnus X-1 jet, neural avalanches,
+  BTW/Manna sandpiles, cellular metabolism, diffusive routing, Hikari
+  PoR consensus). Every eta/Gamma value is copied from its source
+  package's own published constant, not invented. Explicitly framed as
+  a comparison coordinate system, not a claim of a universal physical
+  constant -- see each domain's own caveat text in the app.
+version: "0.1.0"
+date-released: "2026-09-04"
+license: MIT
+repository-code: "https://github.com/GenesisAeon/gamma-explorer"
+keywords:
+  - CREP
+  - UTAC
+  - Gamma
+  - tipping point
+  - cross-domain comparison
+  - GenesisAeon
+authors:
+  - name: "MOR Research Collective / GenesisAeon"
+    email: "joberoemer@gmail.com"
+references:
+  - type: software
+    title: "amoc-utac"
+    repository-code: "https://github.com/GenesisAeon/amoc-utac"
+    doi: "10.5281/zenodo.19645351"
+  - type: software
+    title: "amazon-utac"
+    repository-code: "https://github.com/GenesisAeon/amazon-utac"
+    doi: "10.5281/zenodo.20746954"
+  - type: software
+    title: "solar-flare-utac"
+    repository-code: "https://github.com/GenesisAeon/solar-flare-utac"
+  - type: software
+    title: "cygnus-jet-utac"
+    repository-code: "https://github.com/GenesisAeon/cygnus-jet-utac"
+  - type: software
+    title: "neural-avalanche-utac"
+    repository-code: "https://github.com/GenesisAeon/neural-avalanche-utac"
+  - type: software
+    title: "sandpile-utac"
+    repository-code: "https://github.com/GenesisAeon/sandpile-utac"
+  - type: software
+    title: "cellular-genesis"
+    repository-code: "https://github.com/GenesisAeon/cellular-genesis"
+  - type: software
+    title: "diffusive-routing"
+    repository-code: "https://github.com/GenesisAeon/diffusive-routing"
+  - type: software
+    title: "hikari-ledger"
+    repository-code: "https://github.com/GenesisAeon/hikari-ledger"
