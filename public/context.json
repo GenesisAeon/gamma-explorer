@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0.0",
+  "generated": "2026-09-05",
+  "app": {
+    "id": "gamma-explorer",
+    "title": "Γ-Explorer",
+    "kind": "framework",
+    "live_url": "https://gamma-explorer.vercel.app",
+    "repo_url": "https://github.com/GenesisAeon/gamma-explorer",
+    "llms_txt_url": "https://gamma-explorer.vercel.app/llms.txt"
+  },
+  "source_package": {
+    "name": "cross-domain CREP inversion (10 packages)",
+    "package_id": null,
+    "repo_url": null,
+    "ported_note": "Each domain's eta/sigma/gamma is copied from that package's own constants.py, not recomputed independently."
+  },
+  "verified_quantities": [
+    { "name": "solar.eta", "value": 0.03, "source": "solar-flare-utac (P21)" },
+    { "name": "solar.gammaPublished", "value": 0.0136, "source": "solar-flare-utac (P21)" },
+    { "name": "cygnus.eta", "value": 0.1, "source": "cygnus-jet-utac (P17)" },
+    { "name": "amazon.eta", "value": 0.25, "source": "amazon-utac (P19)" },
+    { "name": "amoc.eta", "value": 0.5, "source": "amoc-utac (P18), Chavent et al. 2026 setpoint" },
+    { "name": "brain.eta", "value": 0.5, "source": "neural-avalanche-utac (P20)" },
+    { "name": "btw.eta", "value": 0.58, "source": "sandpile-utac, Bak-Tang-Wiesenfeld critical density" },
+    { "name": "por.eta", "value": 0.6667, "source": "hikari-ledger, Byzantine tolerance threshold 2/3" },
+    { "name": "manna.eta", "value": 0.68, "source": "sandpile-utac, Manna universality class" },
+    { "name": "routing.eta", "value": 0.75, "source": "diffusive-routing" }
+  ],
+  "framework_overlay": { "used": true, "terms": ["CREP", "Γ"], "note": "This app's entire purpose is comparing published Γ values across packages; framed explicitly in-app as a comparison coordinate system, not a universal physical constant." },
+  "cross_app_relations": [
+    { "app_id": "amoc-kipppunkt", "relation": "shares_source_package", "detail": "amoc.eta/gammaPublished are copied from amoc-utac, the same package amoc-kipppunkt ports." },
+    { "app_id": "amazon-kipppunkt", "relation": "shares_source_package", "detail": "amazon.eta/gammaPublished are copied from amazon-utac, the same package amazon-kipppunkt ports." }
+  ],
+  "disclaimer": "Vergleichs-Koordinatensystem, keine universelle physikalische Konstante. Jeder Wert stammt aus dem jeweiligen Quellpaket."
+}

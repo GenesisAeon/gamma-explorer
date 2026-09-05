@@ -1,0 +1,18 @@
+# Γ-Explorer
+
+> Cross-Domain-Vergleich der Inversion Γ = arctanh(η) / σ über 10 sehr unterschiedliche Systeme (Sonneneruptionen, Cygnus-X-1, AMOC, Amazonas, neuronale Lawinen, Sandhaufen, Konsens-Ledger, Routing). Explizit als Vergleichs-Koordinatensystem gerahmt, nicht als Naturkonstante.
+
+Jeder Domain-Eintrag trägt sein eigenes publiziertes η und Γ aus dem jeweiligen Quellpaket — keine neu erfundenen Werte, keine behauptete Kausalität zwischen den Domänen.
+
+## Quellen (Auswahl)
+- solar-flare-utac: η ≈ 0,03, Γ ≈ 0,0136
+- sandpile-utac (BTW): η_c ≈ 0,58, Γ ≈ 0,296
+- amoc-utac: η = 0,50 (Chavent et al. 2026 Setpoint), Γ ≈ 0,251
+
+## Maschinenlesbar
+- [context.json](/context.json)
+- Schema: https://github.com/GenesisAeon/apps-hub/blob/main/docs/ai-context-schema.md
+
+## Ökosystem
+- Teil der GenesisAeon Apps-Hub-Reihe: https://github.com/GenesisAeon/apps-hub
+- Verlinkt zu allen 10 Quellpaketen (siehe context.json)

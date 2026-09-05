@@ -11,7 +11,7 @@ abstract: >
   package's own published constant, not invented. Explicitly framed as
   a comparison coordinate system, not a claim of a universal physical
   constant -- see each domain's own caveat text in the app.
-version: "0.1.0"
+version: "0.2.0"
 date-released: "2026-09-04"
 license: MIT
 repository-code: "https://github.com/GenesisAeon/gamma-explorer"
