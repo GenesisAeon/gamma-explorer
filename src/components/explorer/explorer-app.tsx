@@ -27,6 +27,8 @@ import {
   type Domain,
 } from "@/lib/crep";
 import { cn } from "@/lib/utils";
+import { LocaleSwitch } from "@/components/locale-switch";
+import { useLocale } from "@/lib/i18n/locale";
 
 const SNAPS = ["amazon", "amoc", "brain", "solar"] as const;
 
@@ -37,6 +39,7 @@ const ETA_MARKS = [
 ] as const;
 
 export function ExplorerApp() {
+  const { t } = useLocale();
   const [eta, setEta] = useState(0.5);
   const [sigma, setSigma] = useState(SIGMA_DEFAULT);
   const [showAll, setShowAll] = useState(true);
@@ -80,12 +83,17 @@ export function ExplorerApp() {
     const higher = sorted.find((d) => domainGamma(d) >= liveGamma);
     const lower = [...sorted].reverse().find((d) => domainGamma(d) <= liveGamma);
     if (lower && higher && lower.id !== higher.id) {
-      return `zwischen ${lower.shortName} (${formatGamma(domainGamma(lower), 3)}) und ${higher.shortName} (${formatGamma(domainGamma(higher), 3)})`;
+      return t.between(
+        lower.shortName,
+        formatGamma(domainGamma(lower), 3),
+        higher.shortName,
+        formatGamma(domainGamma(higher), 3),
+      );
     }
-    if (lower && !higher) return `oberhalb von ${lower.shortName}`;
-    if (higher) return `unterhalb von ${higher.shortName}`;
+    if (lower && !higher) return t.above(lower.shortName);
+    if (higher) return t.below(higher.shortName);
     return null;
-  }, [pool, liveGamma]);
+  }, [pool, liveGamma, t]);
 
   return (
     <TooltipProvider delayDuration={180}>
@@ -93,22 +101,25 @@ export function ExplorerApp() {
         <header className="border-b border-border">
           <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:px-6 md:flex-row md:items-end md:justify-between md:py-10">
             <div className="max-w-2xl">
-              <p className="text-xs font-medium tracking-label text-muted-foreground uppercase">
-                GenesisAeon · CREP-Vergleichsrahmen
-              </p>
+              <div className="flex flex-wrap items-start justify-between gap-3">
+                <p className="text-xs font-medium tracking-label text-muted-foreground uppercase">
+                  {t.eyebrow}
+                </p>
+                <LocaleSwitch />
+              </div>
               <h1 className="font-display mt-2 text-4xl leading-tight tracking-display text-foreground italic sm:text-5xl">
-                Γ-Universalitäts-Explorer
+                {t.title}
               </h1>
               <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
-                Zwei Slider, eine Achse: wie sich{" "}
+                {t.leadBefore}{" "}
                 <span className="font-display italic text-foreground">Γ = arctanh(η) / σ</span>{" "}
-                über AMOC, Amazonas und weitere Pakete legt.
+                {t.leadAfter}
               </p>
             </div>
             <p className="font-mono text-xs tabular-nums text-subtle md:text-right">
-              σ-Standard = 2.2
+              {t.sigmaStandard}
               <br />
-              Pakete 17–21 + SOC / Ledger
+              {t.packagesMeta}
             </p>
           </div>
         </header>
@@ -119,15 +130,12 @@ export function ExplorerApp() {
               <Info className="mt-0.5 size-4 shrink-0 text-primary" aria-hidden />
               <div className="space-y-1.5 text-sm leading-relaxed">
                 <p className="font-medium text-foreground">
-                  Vergleichsrahmen, kein Naturgesetz
+                  {t.disclaimerHeading}
                 </p>
                 <p className="text-muted-foreground">
-                  Γ = arctanh(η)/σ ist die Inversion der UTAC-Fixpunktgleichung{" "}
-                  <span className="font-display italic text-foreground">H* = K · tanh(σ · Γ)</span>.
-                  Das ist <span className="text-foreground">keine bewiesene universelle Naturkonstante</span> und
-                  nicht «die eine Formel für alles». Die Punkte sind Kalibrierungen aus dem
-                  GenesisAeon-Ökosystem — ein gemeinsames Koordinatensystem, kein Nachweis, dass
-                  Ozean, Kortex und Regenwald dieselben Mechanismen teilen.
+                  {t.disclaimerBodyBefore}{" "}
+                  <span className="font-display italic text-foreground">H* = K · tanh(σ · Γ)</span>.{" "}
+                  {t.disclaimerBodyMid}
                 </p>
               </div>
             </div>
@@ -136,7 +144,7 @@ export function ExplorerApp() {
           <div className="grid gap-6 lg:grid-cols-2">
             <section className="rounded-xl bg-card p-5 shadow-[var(--shadow-border)] sm:p-6">
               <p className="text-xs font-medium tracking-label text-muted-foreground uppercase">
-                Live-Γ
+                {t.liveG}
               </p>
               <p className="font-display mt-2 text-6xl leading-none tracking-display text-live italic tabular-nums sm:text-7xl">
                 {formatGamma(liveGamma)}
@@ -155,7 +163,7 @@ export function ExplorerApp() {
               </div>
               {nearest[0] ? (
                 <p className="mt-3 text-sm text-muted-foreground">
-                  Nächster Punkt:{" "}
+                  {t.nearestPoint}{" "}
                   <button
                     type="button"
                     className="text-foreground underline decoration-border underline-offset-4 hover:decoration-primary"
@@ -173,7 +181,7 @@ export function ExplorerApp() {
 
             <section className="rounded-xl bg-card p-5 shadow-[var(--shadow-border)] sm:p-6">
               <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-                <h2 className="font-display text-xl italic">Parameter</h2>
+                <h2 className="font-display text-xl italic">{t.parameters}</h2>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -184,7 +192,7 @@ export function ExplorerApp() {
                   }}
                 >
                   <RotateCcw />
-                  AMOC-Setpoint
+                  {t.amocSetpoint}
                 </Button>
               </div>
 
@@ -192,7 +200,7 @@ export function ExplorerApp() {
                 <div>
                   <div className="flex items-baseline justify-between gap-3">
                     <label htmlFor="eta-slider" className="text-sm font-medium">
-                      Wirkungsgrad η
+                      {t.etaLabel}
                     </label>
                     <span className="font-mono text-sm tabular-nums text-foreground">
                       {formatEta(eta)}{" "}
@@ -206,7 +214,7 @@ export function ExplorerApp() {
                     step={0.001}
                     value={[eta]}
                     onValueChange={(v) => onEta(v[0] ?? eta)}
-                    aria-label="Eta, Wirkungsgrad H Stern durch K"
+                    aria-label={t.etaAria}
                   />
                   <div className="relative mt-1 h-4 text-2xs text-subtle">
                     {ETA_MARKS.map((m) => (
@@ -246,7 +254,7 @@ export function ExplorerApp() {
                       className="text-foreground underline decoration-border underline-offset-2"
                       onClick={() => onSigma(SIGMA_DEFAULT)}
                     >
-                      Ökosystem 2.2
+                      {t.sigmaEcosystem}
                     </button>
                     <span>{SIGMA_MAX.toFixed(1)}</span>
                   </div>
@@ -291,14 +299,14 @@ export function ExplorerApp() {
                 id="show-all"
                 checked={showAll}
                 onCheckedChange={setShowAll}
-                aria-label="Weitere Ökosystem-Pakete anzeigen"
+                aria-label={t.showAllAria}
               />
               <label htmlFor="show-all" className="text-sm text-foreground">
-                Weitere Pakete aus dem Ökosystem
+                {t.showAllLabel}
               </label>
             </div>
             <p className="text-xs text-subtle">
-              {pool.length} {pool.length === 1 ? "Domäne" : "Domänen"} auf der Achse
+              {t.domainsCount(pool.length)}
             </p>
           </div>
 
@@ -312,10 +320,9 @@ export function ExplorerApp() {
             />
 
             <section className="rounded-xl bg-card p-4 shadow-[var(--shadow-border)] sm:p-6">
-              <h2 className="font-display text-xl italic">Domänen</h2>
+              <h2 className="font-display text-xl italic">{t.domainsHeading}</h2>
               <p className="mt-1 mb-4 text-sm text-muted-foreground">
-                Tippen setzt η und σ auf die Paket-Kalibrierung. Tooltips auf der Achse tragen
-                die reale Bedeutung.
+                {t.domainsHint}
               </p>
               <ul className="max-h-96 space-y-2 overflow-y-auto pr-1">
                 {pool
@@ -345,19 +352,19 @@ export function ExplorerApp() {
                               <p className="text-sm font-medium text-foreground">{d.name}</p>
                               <p className="text-xs text-subtle">
                                 {d.field}
-                                {d.packageId ? ` · Paket ${d.packageId}` : ""} · {d.packageName}
+                                {d.packageId ? ` · ${t.packageLabel(String(d.packageId))}` : ""} · {d.packageName}
                               </p>
                             </div>
                             {d.core ? (
-                              <Badge variant="accent">Kern</Badge>
+                              <Badge variant="accent">{t.coreBadge}</Badge>
                             ) : (
-                              <Badge>Ökosystem</Badge>
+                              <Badge>{t.ecosystemBadge}</Badge>
                             )}
                           </div>
                           <p className="mt-2 font-mono text-xs tabular-nums text-muted-foreground">
                             Γ {formatGamma(g, 3)}
                             {Math.abs(g - d.gammaPublished) > 0.004
-                              ? ` · geführt ${d.gammaPublished}`
+                              ? ` · ${t.publishedLabel(d.gammaPublished)}`
                               : ""}
                             {" · "}η {d.eta.toFixed(2)} · σ {d.sigma.toFixed(1)}
                             {Number.isFinite(delta)
@@ -378,7 +385,7 @@ export function ExplorerApp() {
               <div className="flex flex-wrap items-start justify-between gap-3">
                 <div>
                   <p className="text-xs font-medium tracking-label text-muted-foreground uppercase">
-                    Gewählte Kalibrierung
+                    {t.selectedHeading}
                   </p>
                   <h2 className="font-display mt-1 text-2xl italic">{selected.name}</h2>
                 </div>
@@ -388,7 +395,7 @@ export function ExplorerApp() {
                   rel="noreferrer"
                   className="inline-flex h-11 items-center gap-2 rounded-md px-3 text-sm text-foreground shadow-[var(--shadow-border)] hover:bg-secondary"
                 >
-                  Repository
+                  {t.repository}
                   <ExternalLink className="size-4" />
                 </a>
               </div>
@@ -401,23 +408,23 @@ export function ExplorerApp() {
           <section className="rounded-xl bg-card p-5 shadow-[var(--shadow-border)] sm:p-6">
             <h2 className="font-display flex items-center gap-2 text-xl italic">
               <Activity className="size-4 text-primary" aria-hidden />
-              Die Formel in diesem Ökosystem
+              {t.formulaHeading}
             </h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-3">
               <FormulaCard
-                title="Fixpunkt"
+                title={t.formulaFixpunktTitle}
                 body="H* = K · tanh(σ · Γ)"
-                note="Relative Höhe des UTAC-Zustands."
+                note={t.formulaFixpunktNote}
               />
               <FormulaCard
-                title="Wirkungsgrad"
+                title={t.formulaWirkungsgradTitle}
                 body="η = H* / K"
-                note="Anteil am jeweiligen Maximum — Abschwächung, Entwaldung, Flare-Energie."
+                note={t.formulaWirkungsgradNote}
               />
               <FormulaCard
-                title="Inversion"
+                title={t.formulaInversionTitle}
                 body="Γ = arctanh(η) / σ"
-                note="Dieselbe Abbildung, rückwärts. σ ist fast immer 2.2."
+                note={t.formulaInversionNote}
               />
             </div>
             <ul className="mt-5 space-y-2 text-sm text-muted-foreground">
@@ -433,14 +440,13 @@ export function ExplorerApp() {
               ))}
             </ul>
             <p className="mt-4 text-xs text-subtle">
-              Die Bandgrenzen sind eine Lesehilfe dieser Sandbox, keine veröffentlichten
-              Schwellen der Pakete.
+              {t.bandHintNote}
             </p>
           </section>
 
           <footer className="flex flex-col gap-3 border-t border-border pt-6 text-sm text-muted-foreground">
             <p>
-              Quellen im Ökosystem:{" "}
+              {t.sourcesLabel}{" "}
               {(
                 [
                   ["Feldtheorie", "https://github.com/GenesisAeon/Feldtheorie"],
@@ -463,8 +469,7 @@ export function ExplorerApp() {
               ))}
             </p>
             <p className="text-xs text-subtle">
-              Rundungsdifferenzen (AMOC: 0.2497 vs. geführt 0.251) bleiben sichtbar. Die Achse
-              positioniert nach der exakten Inversion, nicht nach dem gerundeten Marketingwert.
+              {t.roundingNote}
             </p>
           </footer>
         </div>
