@@ -29,7 +29,7 @@ references:
   - type: software
     title: "amoc-utac"
     repository-code: "https://github.com/GenesisAeon/amoc-utac"
-    doi: "10.5281/zenodo.19645351"
+    doi: "10.5281/zenodo.21432660"
   - type: software
     title: "amazon-utac"
     repository-code: "https://github.com/GenesisAeon/amazon-utac"
